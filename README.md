@@ -2,11 +2,13 @@
 
 * [Misc] 低通道隐写术EX & Haskell源码阅读
 
-    Name：想起「恐怖的回忆 」
+    * Title：想起「恐怖的回忆 」
 
-    Type: Source Read & Program
+    * Type: Source Read & Program
 
-    是一份Haskell源码和编译好的EXE。
+    * Name: pnghs
+
+    一份Haskell源码和编译好的EXE。
 
     这份源码会完成一种自定义的"低通道隐写"，你需要阅读源码来找到规律。
 
@@ -14,17 +16,21 @@
 
 * [Re] C++ Copy-Constructor
 
-    Title：想起「湖中的大银河 ～ Lunatic」
+    * Title：想起「湖中的大银河 ～ Lunatic」
 
-    Name: maze
+    * Type: Easy C++ Reverse
+
+    * Name: maze
 
     在拷贝构造函数中做了点手脚，也许可以糊弄人试试...
 
 * [Re] Enigma
 
-    Name: 想起「Qt」
+    * Title: 想起「Qt」
 
-    Type: C++ template & C++ 17
+    * Type: C++ template & C++ 17
+
+    * Name: enigma
 
     C++写成的信号槽，参照Enigma实现了类似的密码机。
 
@@ -32,11 +38,26 @@
 
 * [Re] Game
 
-    Name: 想起「 Lunatic Game 」
+    * Title: 想起「 Lunatic Game 」
 
-    Type: C Game + Haskell flag
+    * Type: C Game + Haskell flag
+
+    * Name: 
 
     还是单独的出一个纯粹的游戏吧。使用Haskell隐藏了Flag的算法。
 
     可以尝试翻转胜负的判断分支。
+
+* [Pwn] Echos
+
+    * Title: Echos
+
+    * Type: Linux x64 pwn
+
+    * Name: echos
+
+    由sw友情赞助的题目。
+
+    有迷之坑，在IONBF时，IO流也不会及时刷新...
+
 
