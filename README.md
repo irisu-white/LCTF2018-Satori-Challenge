@@ -42,7 +42,7 @@
 
     * Type: C Game + Haskell flag
 
-    * Name: 
+    * Name: mines
 
     还是单独的出一个纯粹的游戏吧。使用Haskell隐藏了Flag的算法。
 

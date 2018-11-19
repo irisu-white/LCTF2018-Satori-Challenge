@@ -7,20 +7,17 @@ import Codec.Picture.Types
 
 import Helper
 
-type Px = (Int, Int, Int)
+type Px = (Int, Int)
 
 bitX :: Int -> Int -> Int
 bitX d n = shiftR d n .&. 0x01
 
 -- Word8 => Int
--- "_ _ _ _ _ _ _ _" => "_ _ _ | _ _ _ | _ _ 0"
--- padding a Zero at end of Int
+-- RGB LSB. Use R and G
 splitData :: [Int] -> [Px]
-splitData d = func <$> d <*> [0, 3, 6]
+splitData d = func <$> d <*> [6, 4, 2, 0]
     where
-        func x y = let r = bitX $ shiftR x y in (r 1, r 2, r 3)
-
-
+        func x y = (bitX x $ y + 1, bitX x y)
 
 data PxMatrix = PxMatrix {
     pxLen :: Int,
@@ -34,8 +31,8 @@ matrixData img pxs = let d = warpList (imageWidth img) pxs
 
 matrixAt :: PxMatrix -> Int -> Int -> Px
 matrixAt pm x y
-    | y > pxLen pm = (0,0,0)
-    | (y == pxLen pm) && (x > pxEnd pm) = (0,0,0)
+    | y > pxLen pm = (0,0)
+    | (y == pxLen pm) && (x > pxEnd pm) = (0,0)
     | otherwise = (pxData pm) !! y !! x
 
 
@@ -43,8 +40,8 @@ mixImage :: Image PixelRGB8 -> PxMatrix -> Image PixelRGB8
 mixImage img pm = pixelMapXY func img
     where
         up n px = fromIntegral (xor n $ fromIntegral px)
-        func x y (PixelRGB8 r g b) = let (r',g',b') = matrixAt pm x y
-                                     in PixelRGB8 (up r' r) (up g' g) (up b' b)
+        func x y (PixelRGB8 r g b) = let (r',g') = matrixAt pm x y
+                                     in PixelRGB8 (up r' r) (up g' g) b
 
 encodePicture :: FilePath -> FilePath -> [Int] -> IO ()
 encodePicture ifp ofp d = readImage ifp >>= \e ->

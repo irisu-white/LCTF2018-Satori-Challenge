@@ -9,10 +9,10 @@ import Helper
 
 {- Static Vaule -}
 initIV :: [Int]
-initIV = map ord "1fb7bec158785d11f4b27c1b46230d99"
+initIV = map ord "701cc9a49e30d35bebb81fbafc3c9bea"
 
 initKey :: [Int]
-initKey = map ord "UPRPRC"
+initKey = map ord "KomeijiSatori"
 
 blockLen :: Int
 blockLen = 32
@@ -29,18 +29,15 @@ paddingX n c d = d ++ replicate n c
 
 type Calc = State [Int] [Int]
 
-mulMod :: [Int] -> Calc
-mulMod key = gets (\s -> zipWith f s $ cycle key)
-    where f k m = k * m `mod` 256
-
 xorKey :: [Int] -> Int -> Calc
-xorKey key n = gets (\s -> map (xor n) $ take (length s) $ cycle key)
+xorKey key n = gets $ \iv ->
+    map (xor n) $ zipWith xor iv $
+    take (length iv) $ cycle key
 
 calcData :: Calc
 calcData = do
-    x <- mulMod initKey
-    y <- xorKey initKey 5
-    return $ zipWith xor x y
+    y <- xorKey initKey 0x39
+    return $ map (xor 0xFF) y
 
 encryption :: [Int] -> [Int]
 encryption d = evalState calcData d
@@ -53,13 +50,13 @@ initBlock :: [Int] -> DataBlock
 initBlock iv = return iv
 
 -- OFB Mode
-encodeBlock :: ([Int] -> [Int]) -> [Int] -> DataBlock -> DataBlock
-encodeBlock f msg db = db >>= (\iv -> writer (f iv, zipWith xor msg $ f iv ))
+encodeBlock :: ([Int] -> [Int]) -> DataBlock -> [Int] -> DataBlock
+encodeBlock f db msg = db >>= (\iv -> writer (f iv, zipWith xor msg $ f iv ))
 
 {- IO -}
 
 foldData :: [[Int]] -> DataBlock
-foldData list = foldr (encodeBlock encryption) (initBlock initIV) list
+foldData list = foldl (encodeBlock encryption) (initBlock initIV) list
 
 setData :: [Int] -> [[Int]]
 setData d = warpList blockLen $

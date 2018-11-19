@@ -1,19 +1,22 @@
 module Main where
 
-import System.IO
 import Data.Char
+import System.IO
+import System.Environment
 
 import Crypto
 import Image
 
 
-inputPath = "/home/drimtuer/Code/LCTF2018/pnghs/input.png"
-outputPath = "/home/drimtuer/Code/LCTF2018/pnghs/output.png"
-plainText = "ThisIsTestData"
-
-
 main :: IO ()
-main = encodePicture inputPath outputPath $ encryptoData $ map ord plainText
+main = getArgs >>= parse
+--main = putStrLn $ show $ encryptoData $ map ord plainText
 
+parse :: [[Char]] -> IO ()
+parse [fin, fout, fdata] = do
+    plaintext <- readFile fdata
+    encodePicture fin fout $ encryptoData $ map ord plaintext
+
+parse arg = putStrLn "Usage: pnghs input-img output-img data-file"
 
 

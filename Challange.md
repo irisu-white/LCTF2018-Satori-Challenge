@@ -32,8 +32,11 @@ C++超级难懂的，我也不是什么都知道，我只是知道我知道的�
 * File Name: mines
 * Type: Windows PE
 
-* Flag: ``
+* Flag: `LCTF{789289911111261171108678}`
 
+请问您今天要来点srand么？
+
+通关游戏即可获得Flag。
 
 ## Pwn
 
@@ -55,6 +58,7 @@ C++超级难懂的，我也不是什么都知道，我只是知道我知道的�
 * File Name: pnghs
 * Type: Windows PE + Source
 
-* Flag: ``
+* Flag: `LCTF{GameAlwaysOver_TryAgain}`
 
+看见新的Misc题目附带了源代码，你充满了"决心"。
 
