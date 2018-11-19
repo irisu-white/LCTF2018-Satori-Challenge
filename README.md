@@ -1,5 +1,13 @@
 # LCTF2018 - Satori's Challenge
 
+LCTF2018，小五(古明地觉)系列题目。
+
+比赛时使用的题目描述等内容请查看Challenge.md。比赛题目可以在Release页面下载。
+
+Echos由sw独家赞助，不属于本系列题目，只提供了维护的源码。
+
+## Challenge
+
 * [Misc] 低通道隐写术EX & Haskell源码阅读
 
     * Title：想起「恐怖的回忆 」
